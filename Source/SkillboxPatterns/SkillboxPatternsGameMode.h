@@ -6,6 +6,17 @@
 #include "GameFramework/GameModeBase.h"
 #include "SkillboxPatternsGameMode.generated.h"
 
+
+UENUM(Blueprinttype)
+enum class EPlatformTypes : uint8
+{
+	EPT_Android UMETA(DisplayName = "Android"),
+	EPT_iOS UMETA(DisplayName = "iOS"),
+	EPT_Steam UMETA(DisplayName = "Steam"),
+	EPT_MAX UMETA(DisplayName = "DefaultMAX")
+};
+
+
 UCLASS(minimalapi)
 class ASkillboxPatternsGameMode : public AGameModeBase
 {
@@ -13,6 +24,25 @@ class ASkillboxPatternsGameMode : public AGameModeBase
 
 public:
 	ASkillboxPatternsGameMode();
+
+	virtual void StartPlay() override;
+
+protected:
+	// Создаем классы в зависимости от платформы
+	void InitPlatform();
+
+	// Определяем тип платформы
+	void DetectPlatformType();
+
+	// Переменная для смены платформы в BP
+	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Platform")
+	EPlatformTypes PlatformType = EPlatformTypes::EPT_Steam;
+
+private:
+	class UBaseFactory* PlatformFactory = nullptr;
+	class UBaseAchievements* PlatformAchieviments = nullptr;
+	class UBaseChat* PlatformChat = nullptr;
+	class UBaseTop* PlatformTop = nullptr;
 };
 
 
