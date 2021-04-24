@@ -31,6 +31,9 @@ protected:
 	// Создаем классы в зависимости от платформы
 	void InitPlatform();
 
+	// Геренрируем врагов
+	void InitEnemies();
+
 	// Определяем тип платформы
 	void DetectPlatformType();
 
