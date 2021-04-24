@@ -28,14 +28,20 @@ public:
 	virtual void StartPlay() override;
 
 protected:
+	// Определяем тип платформы
+	void DetectPlatformType();
+
 	// Создаем классы в зависимости от платформы
 	void InitPlatform();
 
 	// Геренрируем врагов
 	void InitEnemies();
 
-	// Определяем тип платформы
-	void DetectPlatformType();
+	// Подключаем одиночку
+	void InitConnect();
+
+	// Генерируем лут
+	void InitLoot();
 
 	// Переменная для смены платформы в BP
 	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Platform")

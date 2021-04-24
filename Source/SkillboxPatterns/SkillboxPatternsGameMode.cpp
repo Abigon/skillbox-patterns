@@ -8,6 +8,8 @@
 #include "Builder/BossBuilder.h"
 #include "Builder/MobBuilder.h"
 #include "Builder/EnemyDirector.h"
+#include "Prototype/LootManager.h"
+#include "Singleton/SingletonConnector.h"
 #include "UObject/ConstructorHelpers.h"
 
 
@@ -30,14 +32,48 @@ void ASkillboxPatternsGameMode::StartPlay()
 
 	// Builder
 	InitEnemies();
+
+	// Prototype
+	InitLoot();
+	
+	// Singlton
+	InitConnect();
+}
+
+
+void ASkillboxPatternsGameMode::InitConnect()
+{
+	UE_LOG(LogTemp, Warning, TEXT("----  Singlton  ----"));
+	//auto Connector = USingletonConnector::Get("GameMode");
+
+}
+
+void ASkillboxPatternsGameMode::InitLoot()
+{
+	auto LootManager = NewObject<ULootManager>();
+
+	UE_LOG(LogTemp, Warning, TEXT("----  Prototype  ----"));
+
+	TArray<UPrototypeItem*> Loots;
+	Loots.Add(LootManager->GetNewLootItem(EItemTypes::EIT_GreatHealthPoiton));
+	Loots.Add(LootManager->GetNewLootItem(EItemTypes::EIT_LightItem));
+	Loots.Add(LootManager->GetNewLootItem(EItemTypes::EIT_SmallHealthPoiton));
+	Loots.Add(LootManager->GetNewLootItem(EItemTypes::EIT_LightItem));
+	Loots.Add(LootManager->GetNewLootItem(EItemTypes::EIT_GreatHealthPoiton));
+
+	for (auto Loot : Loots)
+	{
+		Loot->PrintItem();
+	}
+	UE_LOG(LogTemp, Warning, TEXT(" "));
 }
 
 void ASkillboxPatternsGameMode::InitEnemies()
 {
 	TArray<UEnemy*> Enemies;
 
-	UEnemyDirector* Director = NewObject<UEnemyDirector>();
-	UMobBuilder* MobBuilder = NewObject<UMobBuilder>();
+	auto Director = NewObject<UEnemyDirector>();
+	auto MobBuilder = NewObject<UMobBuilder>();
 
 	// Создаем простого моба через директора
 	Director->SetBuilder(MobBuilder);
@@ -62,7 +98,7 @@ void ASkillboxPatternsGameMode::InitEnemies()
 	Enemies.Add(MobBuilder->GetResult());
 
 	// Создаем босса без директора
-	UBossBuilder* BossBuilder = NewObject<UBossBuilder>();
+	auto BossBuilder = NewObject<UBossBuilder>();
 	BossBuilder->Reset("Boss 1");
 	BossBuilder->SetLeftHandWeapon();
 	BossBuilder->SetShield();
