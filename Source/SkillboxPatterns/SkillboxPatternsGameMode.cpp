@@ -43,8 +43,8 @@ void ASkillboxPatternsGameMode::StartPlay()
 
 void ASkillboxPatternsGameMode::InitConnect()
 {
-	UE_LOG(LogTemp, Warning, TEXT("----  Singlton  ----"));
-	//auto Connector = USingletonConnector::Get("GameMode");
+
+	auto Connector = USingletonConnector::Get("GameMode");
 
 }
 

@@ -15,16 +15,34 @@ class USingletonConnector : public UObject
 public:
 	static USingletonConnector* Get(FString Name);
 
+	// Переопределяем деструктор для проверки удаления обхекта
+	~USingletonConnector()
+	{
+		UE_LOG(LogTemp, Warning, TEXT("Delete USingletonConnector"));
+	}
+
+protected:
+	// Прячем конструктор
+	USingletonConnector() {};
+
 private:
 	static USingletonConnector* Instance;
 };
 
+USingletonConnector* USingletonConnector::Instance = nullptr;
+
+
 inline USingletonConnector* USingletonConnector::Get(FString Name)
 {
+	UE_LOG(LogTemp, Warning, TEXT("----  Singleton  ----"));
+
 	if (!Instance)
 	{
 		Instance = NewObject<USingletonConnector>();
 		UE_LOG(LogTemp, Warning, TEXT("Init from: %s"), *Name);
 	}
+
+	UE_LOG(LogTemp, Warning, TEXT("Call from: %s"), *Name);
+	UE_LOG(LogTemp, Warning, TEXT(" "));
 	return Instance;
 }

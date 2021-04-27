@@ -7,6 +7,7 @@
 #include "Components/InputComponent.h"
 #include "GameFramework/CharacterMovementComponent.h"
 #include "GameFramework/Controller.h"
+#include "Singleton/SingletonConnector.h"
 #include "GameFramework/SpringArmComponent.h"
 
 //////////////////////////////////////////////////////////////////////////
@@ -137,4 +138,11 @@ void ASkillboxPatternsCharacter::MoveRight(float Value)
 		// add movement in that direction
 		AddMovementInput(Direction, Value);
 	}
+}
+
+void ASkillboxPatternsCharacter::BeginPlay()
+{
+	Super::BeginPlay();
+	auto Connector = USingletonConnector::Get("Character");
+
 }
