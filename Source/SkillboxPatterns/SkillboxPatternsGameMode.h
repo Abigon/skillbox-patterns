@@ -43,6 +43,18 @@ protected:
 	// Генерируем лут
 	void InitLoot();
 
+	// Компоновщик и мост
+	void InitSquadUnitsBridge();
+
+
+
+	// Запускаем разные паттерны
+	void RunCreational();
+
+	void RunStructural();
+
+	void RunBehavioral();
+
 	// Переменная для смены платформы в BP
 	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Platform")
 	EPlatformTypes PlatformType = EPlatformTypes::EPT_Steam;

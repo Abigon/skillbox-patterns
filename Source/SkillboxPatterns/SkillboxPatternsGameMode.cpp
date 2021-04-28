@@ -10,6 +10,10 @@
 #include "Builder/EnemyDirector.h"
 #include "Prototype/LootManager.h"
 #include "Singleton/SingletonConnector.h"
+#include "Composite/Squad.h"
+#include "Composite/Soldier.h"
+#include "Bridge/Rifle.h"
+#include "Bridge/RocketLauncher.h"
 #include "UObject/ConstructorHelpers.h"
 
 
@@ -27,6 +31,55 @@ void ASkillboxPatternsGameMode::StartPlay()
 {
 	Super::StartPlay();
 
+	RunCreational();
+	RunStructural();
+	RunBehavioral();
+}
+
+void ASkillboxPatternsGameMode::RunBehavioral()
+{
+
+}
+
+void ASkillboxPatternsGameMode::RunStructural()
+{
+	// Компоновщик и Мост
+	InitSquadUnitsBridge();
+}
+
+void ASkillboxPatternsGameMode::InitSquadUnitsBridge()
+{
+	UE_LOG(LogTemp, Warning, TEXT("----  Composite & Bridge ----"));
+
+	// Создаем солдат и добавляем им оружие
+	auto Soldier1 = NewObject<USoldier>();
+	Soldier1->AddWeapon(NewObject<URifle>());
+	auto Soldier2 = NewObject<USoldier>();
+	Soldier2->AddWeapon(NewObject<URocketLauncher>());
+	auto Soldier3 = NewObject<USoldier>();
+	Soldier3->AddWeapon(NewObject<URifle>());
+
+	// Создаем отряд, оружие не добавляем
+	auto Squad = NewObject<USquad>();
+
+	// Добавляет жвух солдат в отряд, один остается свободным
+	Squad->AddUnit(Soldier1);
+	Squad->AddUnit(Soldier2);
+
+	// Отправляем свободного солдата к точке
+	Soldier3->MoveToPoint(FVector(1));
+
+	//Отправляем отряд к точке
+	Squad->MoveToPoint(FVector(10));
+
+	//Отправляем солдата из отряда к точке
+	Soldier1->MoveToPoint(FVector(33));
+
+	UE_LOG(LogTemp, Warning, TEXT("   "));
+}
+
+void ASkillboxPatternsGameMode::RunCreational()
+{
 	// AbstractFactory
 	InitPlatform();
 
@@ -35,17 +88,14 @@ void ASkillboxPatternsGameMode::StartPlay()
 
 	// Prototype
 	InitLoot();
-	
+
 	// Singlton
 	InitConnect();
 }
 
-
 void ASkillboxPatternsGameMode::InitConnect()
 {
-
 	auto Connector = USingletonConnector::Get("GameMode");
-
 }
 
 void ASkillboxPatternsGameMode::InitLoot()
