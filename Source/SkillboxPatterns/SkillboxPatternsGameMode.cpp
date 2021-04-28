@@ -14,6 +14,7 @@
 #include "Composite/Soldier.h"
 #include "Bridge/Rifle.h"
 #include "Bridge/RocketLauncher.h"
+#include "Facade/BowArrowShot.h"
 #include "UObject/ConstructorHelpers.h"
 
 
@@ -45,6 +46,21 @@ void ASkillboxPatternsGameMode::RunStructural()
 {
 	// Компоновщик и Мост
 	InitSquadUnitsBridge();
+
+	// Фасад
+	InitBowArrows();
+
+}
+
+void ASkillboxPatternsGameMode::InitBowArrows()
+{
+	UE_LOG(LogTemp, Warning, TEXT("---- Facade ----"));
+
+	auto BA = NewObject<UBowArrowShot>();
+	BA->Shot();
+	BA->Hide();
+
+	UE_LOG(LogTemp, Warning, TEXT("   "));
 }
 
 void ASkillboxPatternsGameMode::InitSquadUnitsBridge()

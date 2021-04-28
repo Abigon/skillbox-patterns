@@ -46,6 +46,9 @@ protected:
 	// Компоновщик и мост
 	void InitSquadUnitsBridge();
 
+	// Facade
+	void InitBowArrows();
+
 
 	// Запускаем разные паттерны
 	void RunCreational();
