@@ -47,12 +47,9 @@ protected:
 	void InitSquadUnitsBridge();
 
 
-
 	// Запускаем разные паттерны
 	void RunCreational();
-
 	void RunStructural();
-
 	void RunBehavioral();
 
 	// Переменная для смены платформы в BP
