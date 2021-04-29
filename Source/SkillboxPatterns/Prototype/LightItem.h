@@ -20,6 +20,7 @@ public:
 		if (NewItem)
 		{
 			NewItem->ItemName = ItemName;
+			NewItem->ItemImage = ItemImage;
 			NewItem->LightPower = LightPower;
 			NewItem->LightDistance = LightDistance;
 		}
@@ -28,7 +29,7 @@ public:
 
 	virtual void PrintItem() override
 	{
-		UE_LOG(LogTemp, Warning, TEXT("Item: %s, Power: %f, Distance: %f"), *ItemName, LightPower, LightDistance);
+		UE_LOG(LogTemp, Warning, TEXT("Item: %s, Power: %f, Distance: %f, ImageName: %s"), *ItemName, LightPower, LightDistance, *GetImageName());
 	};
 
 	void SetLightParams(float NewPower, float NewDistance) 

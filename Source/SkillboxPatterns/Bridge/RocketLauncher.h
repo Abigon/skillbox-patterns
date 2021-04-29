@@ -17,15 +17,15 @@ class SKILLBOXPATTERNS_API URocketLauncher : public UWeapon
 public:
 	URocketLauncher()
 	{
-		WeaponName += "RocketLauncher";
+		WeaponName = "RocketLauncher";
 	}
 
-	virtual void Shot() override 
+	virtual void WeaponShot() override
 	{
 		// Конкретная реализация функции
 	}
 
-	virtual void Reload() override
+	virtual void HideWeapon() override
 	{
 		// Конкретная реализация функции
 	}

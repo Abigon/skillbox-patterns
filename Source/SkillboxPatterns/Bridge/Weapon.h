@@ -16,13 +16,13 @@ class SKILLBOXPATTERNS_API UWeapon : public UObject
 	
 public:
 
-	// ќбъ€вл€ем которые могут быть перекрыты в конкретной реализации
-	virtual void Shot() {};
-	virtual void Reload() {};
+	// ќбъ€вл€ем функции которые могут быть перекрыты в конкретной реализации
+	virtual void WeaponShot() {};
+	virtual void HideWeapon() {};
 
 	virtual FString GetWeaponName() { return WeaponName; }
 
 protected:
-	FString WeaponName = "";
+	FString WeaponName;
 
 };

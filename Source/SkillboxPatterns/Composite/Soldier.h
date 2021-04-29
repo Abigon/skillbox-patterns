@@ -27,12 +27,12 @@ public:
 
 	virtual void Shot() override
 	{
-		UnitWeapon->Shot();
+		UnitWeapon->WeaponShot();
 	}
 
-	virtual void Reload() override
+	virtual void HideWeapon() override
 	{
-		UnitWeapon->Reload();
+		UnitWeapon->HideWeapon();
 	}
 
 	virtual FString GetWeaponName() override { return UnitWeapon->GetWeaponName(); }

@@ -20,6 +20,7 @@ public:
 		if (NewItem)
 		{
 			NewItem->ItemName = ItemName;
+			NewItem->ItemImage = ItemImage;
 			NewItem->ItemValue = ItemValue;
 		}
 		return NewItem;
@@ -27,7 +28,7 @@ public:
 
 	virtual void PrintItem() override
 	{
-		UE_LOG(LogTemp, Warning, TEXT("Item: %s, Value: %f"), *ItemName, ItemValue);
+		UE_LOG(LogTemp, Warning, TEXT("Item: %s, Value: %f, ImageName: %s"), *ItemName, ItemValue, *GetImageName());
 	};
 
 	void SetValue(float NewValue) { ItemValue = NewValue; }

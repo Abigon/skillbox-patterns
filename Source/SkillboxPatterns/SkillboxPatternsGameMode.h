@@ -49,6 +49,11 @@ protected:
 	// Facade
 	void InitBowArrows();
 
+	// Proxy
+	void InitBowArrowsLog();
+
+	// Adapter
+	void InitBowWeapon();
 
 	// Запускаем разные паттерны
 	void RunCreational();

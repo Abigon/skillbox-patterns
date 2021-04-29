@@ -16,15 +16,15 @@ class SKILLBOXPATTERNS_API URifle : public UWeapon
 public:
 	URifle()
 	{
-		WeaponName += "Rifle";
+		WeaponName = "Rifle";
 	}
 
-	virtual void Shot() override
+	virtual void WeaponShot() override
 	{
 		// Конкретная реализация функции
 	}
 
-	virtual void Reload() override
+	virtual void HideWeapon() override
 	{
 		// Конкретная реализация функции
 	}

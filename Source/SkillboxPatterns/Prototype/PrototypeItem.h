@@ -4,8 +4,12 @@
 
 #include "CoreMinimal.h"
 #include "UObject/NoExportTypes.h"
+#include "../Flyweight/ItemImage.h"
 #include "PrototypeItem.generated.h"
 
+
+// Интерфейс Прототипа и одновременно "уникальная часть" для Легковеса.
+// Содержит ссылку на ItemImage, который не уникален только для этого объета и занимает много памяти
 
 UENUM(Blueprinttype)
 enum class EItemTypes : uint8
@@ -24,18 +28,25 @@ class SKILLBOXPATTERNS_API UPrototypeItem : public UObject
 public:
 	UPrototypeItem() {};
 
-	//UPrototypeItem(UPrototypeItem* PrototypeItem)
-	//{
-	//	UPrototypeItem* NewItem = NewObject<UPrototypeItem>();
-	//}
-
 	virtual void SetName(const FString NewName) { ItemName = NewName; }
+	virtual void SetImage(UItemImage* Image) { ItemImage = Image; }
 
 	FString GetName() const { return ItemName; };
+
+	// Возвращам имя картинки для лога
+	FString GetImageName() const
+	{
+		if (ItemImage) return ItemImage->GetImageName();
+		return "";
+	}
+
 	virtual UPrototypeItem* Clone() const { return nullptr; }
 	virtual void PrintItem() {};
 
 protected:
 	// Название предмета
 	FString ItemName;
+
+	// Ссылка на изображение
+	UItemImage* ItemImage = nullptr;
 };

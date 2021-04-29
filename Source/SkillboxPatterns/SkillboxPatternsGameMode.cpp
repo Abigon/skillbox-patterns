@@ -15,6 +15,8 @@
 #include "Bridge/Rifle.h"
 #include "Bridge/RocketLauncher.h"
 #include "Facade/BowArrowShot.h"
+#include "Proxy/BowArrowShotLog.h"
+#include "Adapter/BowWeapon.h"
 #include "UObject/ConstructorHelpers.h"
 
 
@@ -50,6 +52,36 @@ void ASkillboxPatternsGameMode::RunStructural()
 	// Фасад
 	InitBowArrows();
 
+	// Заместитель
+	InitBowArrowsLog();
+	
+	// Адаптер
+	InitBowWeapon();
+}
+
+void ASkillboxPatternsGameMode::InitBowWeapon()
+{
+	UE_LOG(LogTemp, Warning, TEXT("----  Adapter ----"));
+
+	// Создаем солдата и добавляем ему лук 
+	auto Soldier1 = NewObject<USoldier>();
+	Soldier1->AddWeapon(NewObject<UBowWeapon>());
+
+	//Отправляем из к точке для вывода лога
+	Soldier1->MoveToPoint(FVector(33));
+
+	UE_LOG(LogTemp, Warning, TEXT("   "));
+}
+
+void ASkillboxPatternsGameMode::InitBowArrowsLog()
+{
+	UE_LOG(LogTemp, Warning, TEXT("---- Proxy 1 ----"));
+	
+	auto BALog = NewObject<UBowArrowShotLog>();
+	BALog->Shot();
+	BALog->Hide();
+
+	UE_LOG(LogTemp, Warning, TEXT("   "));
 }
 
 void ASkillboxPatternsGameMode::InitBowArrows()
@@ -117,6 +149,7 @@ void ASkillboxPatternsGameMode::InitConnect()
 void ASkillboxPatternsGameMode::InitLoot()
 {
 	auto LootManager = NewObject<ULootManager>();
+	LootManager->InitLootManager();
 
 	UE_LOG(LogTemp, Warning, TEXT("----  Prototype  ----"));
 

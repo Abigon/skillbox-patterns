@@ -33,11 +33,11 @@ public:
 		}
 	}
 
-	virtual void Reload() override
+	virtual void HideWeapon() override
 	{
 		for (auto Unit : SquadUnits)
 		{
-			Unit->Reload();
+			Unit->HideWeapon();
 		}
 	}
 
