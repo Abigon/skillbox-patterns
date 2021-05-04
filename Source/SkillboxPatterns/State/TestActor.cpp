@@ -55,7 +55,4 @@ void ATestActor::SetCurrentState(bool bIsOverlapped)
 	{
 		CurrentState = NormalState;
 	}
-
-	// Сообщаем о наступлении события подписчикам
-	OnChangeState.Broadcast();
 }

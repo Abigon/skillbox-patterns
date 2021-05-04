@@ -7,9 +7,6 @@
 #include "TestActor.generated.h"
 
 
-
-DECLARE_MULTICAST_DELEGATE(FOnChangeStateSignature);
-
 UCLASS()
 class SKILLBOXPATTERNS_API ATestActor : public AActor
 {
@@ -22,17 +19,15 @@ public:
 	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "Collision")
 	class USphereComponent* CollisionVolume;
 
-	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "Collision")
+	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Collision")
 	float Radius = 100.f;
-
-	FOnChangeStateSignature OnChangeState;
 
 	// ¬озвращает true, если игрок перекрывает сферу
 	bool IsCollisionSphereOverlapped();
 
 	// ”стнавливает текущее состо€ние. “.к. состо€ний 2 используетс€ bool, 
 	// при большем кол-ве состо€ний можно использовать перечислени€
-	void SetCurrentState(bool bIsOverlapped);
+	virtual void SetCurrentState(bool bIsOverlapped);
 
 protected:
 	UPROPERTY()

@@ -10,7 +10,7 @@
 #include "Camera/CameraShake.h"
 #include "Kismet/GameplayStatics.h"
 #include "Singleton/SingletonConnector.h"
-#include "State/TestActor.h"
+#include "State/NewTestActor.h"
 #include "GameFramework/SpringArmComponent.h"
 
 //////////////////////////////////////////////////////////////////////////
@@ -152,11 +152,11 @@ void ASkillboxPatternsCharacter::BeginPlay()
 
 	// Подписываемся на события от всех сфер на карте
 	TArray<AActor*> ListOfSpheres;
-	UGameplayStatics::GetAllActorsOfClass(GetWorld(), ATestActor::StaticClass(), ListOfSpheres);
+	UGameplayStatics::GetAllActorsOfClass(GetWorld(), ANewTestActor::StaticClass(), ListOfSpheres);
 
 	for (auto Sphere : ListOfSpheres)
 	{
-		auto TestSphere = Cast<ATestActor>(Sphere);
+		auto TestSphere = Cast<ANewTestActor>(Sphere);
 		if (TestSphere)
 		{
 			TestSphere->OnChangeState.AddUObject(this, &ASkillboxPatternsCharacter::PlayCameraShake);
