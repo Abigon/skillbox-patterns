@@ -29,6 +29,9 @@ public:
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category=Camera)
 	float BaseLookUpRate;
 
+	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "VFX")
+	TSubclassOf<class UCameraShakeBase>CameraShake;
+
 protected:
 
 	/** Resets HMD orientation in VR. */
@@ -70,5 +73,9 @@ public:
 	FORCEINLINE class USpringArmComponent* GetCameraBoom() const { return CameraBoom; }
 	/** Returns FollowCamera subobject **/
 	FORCEINLINE class UCameraComponent* GetFollowCamera() const { return FollowCamera; }
+
+private:
+	// Проигрываем тряску камеры
+	void PlayCameraShake();
 };
 

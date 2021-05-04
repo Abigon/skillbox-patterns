@@ -11,8 +11,6 @@
 #include "Builder/MobBuilder.h"
 #include "Builder/EnemyDirector.h"
 #include "Prototype/LootManager.h"
-#include "Singleton/SingletonConnector.h"
-
 #include "CreationalPatterns.generated.h"
 
 // Порождающие паттерны
@@ -44,15 +42,6 @@ public:
 
 		// Prototype
 		InitLoot();
-
-		// Singlton
-		InitConnect();
-
-	}
-
-	void InitConnect()
-	{
-		auto Connector = USingletonConnector::Get("GameMode");
 	}
 
 	void InitLoot()

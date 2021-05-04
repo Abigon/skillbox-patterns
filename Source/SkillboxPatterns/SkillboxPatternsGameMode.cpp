@@ -2,6 +2,7 @@
 
 #include "SkillboxPatternsGameMode.h"
 #include "SkillboxPatternsCharacter.h"
+#include "Singleton/SingletonConnector.h"
 #include "UObject/ConstructorHelpers.h"
 
 
@@ -43,5 +44,8 @@ void ASkillboxPatternsGameMode::RunCreational()
 	auto CreationalPatterns = NewObject<UCreationalPatterns>();
 
 	if (CreationalPatterns) CreationalPatterns->InitCreationalPatterns(PlatformType);
+
+	// Singlton
+	auto Connector = USingletonConnector::Get("GameMode");
 }
 

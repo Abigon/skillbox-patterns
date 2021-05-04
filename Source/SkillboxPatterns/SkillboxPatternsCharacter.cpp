@@ -7,7 +7,10 @@
 #include "Components/InputComponent.h"
 #include "GameFramework/CharacterMovementComponent.h"
 #include "GameFramework/Controller.h"
+#include "Camera/CameraShake.h"
+#include "Kismet/GameplayStatics.h"
 #include "Singleton/SingletonConnector.h"
+#include "State/TestActor.h"
 #include "GameFramework/SpringArmComponent.h"
 
 //////////////////////////////////////////////////////////////////////////
@@ -143,6 +146,28 @@ void ASkillboxPatternsCharacter::MoveRight(float Value)
 void ASkillboxPatternsCharacter::BeginPlay()
 {
 	Super::BeginPlay();
+
+	// Singleplay
 	auto Connector = USingletonConnector::Get("Character");
 
+	// Подписываемся на события от всех сфер на карте
+	TArray<AActor*> ListOfSpheres;
+	UGameplayStatics::GetAllActorsOfClass(GetWorld(), ATestActor::StaticClass(), ListOfSpheres);
+
+	for (auto Sphere : ListOfSpheres)
+	{
+		auto TestSphere = Cast<ATestActor>(Sphere);
+		if (TestSphere)
+		{
+			TestSphere->OnChangeState.AddUObject(this, &ASkillboxPatternsCharacter::PlayCameraShake);
+		}
+	}
+}
+
+void ASkillboxPatternsCharacter::PlayCameraShake()
+{
+	const auto MyController = GetController<APlayerController>();
+	if (!MyController || !MyController->PlayerCameraManager) return;
+
+	MyController->PlayerCameraManager->StartCameraShake(CameraShake);
 }
