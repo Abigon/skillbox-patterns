@@ -4,17 +4,10 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/GameModeBase.h"
+#include "CreationalPatterns.h"
+#include "StructuralPatterns.h"
+#include "BehavioralPatterns.h"
 #include "SkillboxPatternsGameMode.generated.h"
-
-
-UENUM(Blueprinttype)
-enum class EPlatformTypes : uint8
-{
-	EPT_Android UMETA(DisplayName = "Android"),
-	EPT_iOS UMETA(DisplayName = "iOS"),
-	EPT_Steam UMETA(DisplayName = "Steam"),
-	EPT_MAX UMETA(DisplayName = "DefaultMAX")
-};
 
 
 UCLASS(minimalapi)
@@ -28,33 +21,6 @@ public:
 	virtual void StartPlay() override;
 
 protected:
-	// Определяем тип платформы
-	void DetectPlatformType();
-
-	// Создаем классы в зависимости от платформы
-	void InitPlatform();
-
-	// Геренрируем врагов
-	void InitEnemies();
-
-	// Подключаем одиночку
-	void InitConnect();
-
-	// Генерируем лут
-	void InitLoot();
-
-	// Компоновщик и мост
-	void InitSquadUnitsBridge();
-
-	// Facade
-	void InitBowArrows();
-
-	// Proxy
-	void InitBowArrowsLog();
-
-	// Adapter
-	void InitBowWeapon();
-
 	// Запускаем разные паттерны
 	void RunCreational();
 	void RunStructural();
@@ -64,11 +30,6 @@ protected:
 	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Platform")
 	EPlatformTypes PlatformType = EPlatformTypes::EPT_Steam;
 
-private:
-	class UBaseFactory* PlatformFactory = nullptr;
-	class UBaseAchievements* PlatformAchieviments = nullptr;
-	class UBaseChat* PlatformChat = nullptr;
-	class UBaseTop* PlatformTop = nullptr;
 };
 
 

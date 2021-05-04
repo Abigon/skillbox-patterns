@@ -37,6 +37,18 @@ public:
 
 	virtual FString GetWeaponName() override { return UnitWeapon->GetWeaponName(); }
 
+	// Функция для Посетителя
+	virtual void Accept(UVisitorTemp* Visitor) override 
+	{
+		Visitor->VisitSoldier(this);
+	}
+
+	// Функция, которая будет вызываться посетителем
+	void Heal() 
+	{
+		UE_LOG(LogTemp, Warning, TEXT("Soldier was heal by Visitor"));
+	}
+
 protected:
 	UWeapon* UnitWeapon = nullptr;
 

@@ -5,6 +5,7 @@
 #include "CoreMinimal.h"
 #include "UObject/NoExportTypes.h"
 #include "../Bridge/Weapon.h"
+#include "../Visitor/VisitorTemp.h"
 #include "Unit.generated.h"
 
 
@@ -31,9 +32,10 @@ public:
 	virtual void Shot() {};
 	virtual void HideWeapon() {};
 
+	// Функция для Посетителя
+	virtual void Accept(UVisitorTemp* Visitor) {};
+
 	// Можно добавить еще общих функций, но есть риск что для части наследников они будут пустыми
-
-
 
 private:
 

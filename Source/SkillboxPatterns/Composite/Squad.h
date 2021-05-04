@@ -61,6 +61,19 @@ public:
 		}
 	}
 
+	 // Функция для Посетителя
+	virtual void Accept(UVisitorTemp* Visitor) override
+	{
+		Visitor->VisitSquad(this);
+	}
+
+	 // Функция, которая будет вызываться посетителем
+	 void HealSquad()
+	 {
+		 UE_LOG(LogTemp, Warning, TEXT("Squad was heal by Visitor"));
+	 }
+
+
 private:
 	TArray<UUnit*> SquadUnits;
 };
