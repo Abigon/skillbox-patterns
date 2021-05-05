@@ -22,14 +22,6 @@ void ASkillboxPatternsGameMode::StartPlay()
 
 	RunCreational();
 	RunStructural();
-	RunBehavioral();
-}
-
-void ASkillboxPatternsGameMode::RunBehavioral()
-{
-	auto BehavioralPatterns = NewObject<UBehavioralPatterns>();
-
-	if (BehavioralPatterns) BehavioralPatterns->InitBehavioralPatterns();
 }
 
 void ASkillboxPatternsGameMode::RunStructural()
@@ -47,5 +39,15 @@ void ASkillboxPatternsGameMode::RunCreational()
 
 	// Singlton
 	auto Connector = USingletonConnector::Get("GameMode");
+}
+
+void ASkillboxPatternsGameMode::SaveGame()
+{
+	UE_LOG(LogTemp, Warning, TEXT("Game saved at Slot #1"));
+}
+
+void ASkillboxPatternsGameMode::LoadGame()
+{
+	UE_LOG(LogTemp, Warning, TEXT("Game loaded from Slot #1"));
 }
 

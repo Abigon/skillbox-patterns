@@ -4,24 +4,17 @@
 
 #include "CoreMinimal.h"
 #include "UObject/NoExportTypes.h"
+#include "Command.generated.h"
 
-#include "BehavioralPatterns.generated.h"
-
-
-// Поведенческие паттерны
-
+// Общий для всех конкретных команд интерфейс
 
 UCLASS()
-class SKILLBOXPATTERNS_API UBehavioralPatterns : public UObject
+class SKILLBOXPATTERNS_API UCommand : public UObject
 {
 	GENERATED_BODY()
 	
 public:
+	virtual void Execute() {};
 
-	void InitBehavioralPatterns()
-	{
-
-
-	};
 
 };

@@ -75,7 +75,16 @@ public:
 	FORCEINLINE class UCameraComponent* GetFollowCamera() const { return FollowCamera; }
 
 private:
+	// Переменные для хранения ссылок на команды
+	class UCommand* LoadGameCommand = nullptr;
+	UCommand* SaveGameCommand = nullptr;
+
+
 	// Проигрываем тряску камеры
 	void PlayCameraShake();
+
+	// Процедуры вызова команд для привязки BindAction
+	void CallSaveGame();
+	void CallLoadGame();
 };
 

@@ -1,6 +1,7 @@
 // Copyright Epic Games, Inc. All Rights Reserved.
 
 #include "SkillboxPatternsCharacter.h"
+#include "SkillboxPatternsGameMode.h"
 #include "HeadMountedDisplayFunctionLibrary.h"
 #include "Camera/CameraComponent.h"
 #include "Components/CapsuleComponent.h"
@@ -11,6 +12,8 @@
 #include "Kismet/GameplayStatics.h"
 #include "Singleton/SingletonConnector.h"
 #include "State/NewTestActor.h"
+#include "Command/LoadGameCommand.h"
+#include "Command/SaveGameCommand.h"
 #include "GameFramework/SpringArmComponent.h"
 
 //////////////////////////////////////////////////////////////////////////
@@ -78,6 +81,13 @@ void ASkillboxPatternsCharacter::SetupPlayerInputComponent(class UInputComponent
 
 	// VR headset functionality
 	PlayerInputComponent->BindAction("ResetVR", IE_Pressed, this, &ASkillboxPatternsCharacter::OnResetVR);
+
+
+	// Привяза клавиш к функциям сохранения и загрузки
+	// L - загрузка, O - сохранение
+	PlayerInputComponent->BindAction("LoadGame", IE_Released, this, &ASkillboxPatternsCharacter::CallLoadGame);
+	PlayerInputComponent->BindAction("SaveGame", IE_Released, this, &ASkillboxPatternsCharacter::CallSaveGame);
+
 }
 
 
@@ -162,6 +172,17 @@ void ASkillboxPatternsCharacter::BeginPlay()
 			TestSphere->OnChangeState.AddUObject(this, &ASkillboxPatternsCharacter::PlayCameraShake);
 		}
 	}
+
+	// Назначаем команды сохранения и загрузки
+	auto MyGameMode = Cast<ASkillboxPatternsGameMode>(UGameplayStatics::GetGameMode(this));
+
+	auto SGC = NewObject<USaveGameCommand>();
+	SGC->SetReceiver(MyGameMode);
+	SaveGameCommand = SGC;
+
+	auto LGC = NewObject<ULoadGameCommand>();
+	LGC->SetReceiver(MyGameMode);
+	LoadGameCommand = LGC;
 }
 
 void ASkillboxPatternsCharacter::PlayCameraShake()
@@ -170,4 +191,20 @@ void ASkillboxPatternsCharacter::PlayCameraShake()
 	if (!MyController || !MyController->PlayerCameraManager) return;
 
 	MyController->PlayerCameraManager->StartCameraShake(CameraShake);
+}
+
+void ASkillboxPatternsCharacter::CallSaveGame()
+{
+	if (SaveGameCommand)
+	{
+		SaveGameCommand->Execute();
+	}
+}
+
+void ASkillboxPatternsCharacter::CallLoadGame()
+{
+	if (LoadGameCommand)
+	{
+		LoadGameCommand->Execute();
+	}
 }

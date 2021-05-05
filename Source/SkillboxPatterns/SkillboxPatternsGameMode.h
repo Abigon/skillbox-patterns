@@ -6,7 +6,6 @@
 #include "GameFramework/GameModeBase.h"
 #include "CreationalPatterns.h"
 #include "StructuralPatterns.h"
-#include "BehavioralPatterns.h"
 #include "SkillboxPatternsGameMode.generated.h"
 
 
@@ -20,11 +19,13 @@ public:
 
 	virtual void StartPlay() override;
 
+	void SaveGame();
+	void LoadGame();
+
 protected:
 	// Запускаем разные паттерны
 	void RunCreational();
 	void RunStructural();
-	void RunBehavioral();
 
 	// Переменная для смены платформы в BP
 	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Platform")
